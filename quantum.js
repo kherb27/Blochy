@@ -3,7 +3,7 @@ function state2vector(state) {
     r01 = math.multiply(state['_data'][0],math.conj(state['_data'][1]));
     r00 = math.multiply(state['_data'][0],math.conj(state['_data'][0]));
     r11 = math.multiply(state['_data'][1],math.conj(state['_data'][1]));
-    u = 2*math.re(r01);
+    u = -2*math.re(r01);
     v = 2*math.im(r01);
     w = math.re(r00-r11);
     return [u,v,w]
@@ -35,14 +35,14 @@ function rot(axis_op, angle, ...state) {
     }
    
     //console.log(math.multiply(math.complex(0,-angle),op));
-    rot_op = math.expm(math.multiply(math.complex(0,angle),op));
+    rot_op = math.expm(math.multiply(math.complex(0,-angle),op));
     //console.log("Rotation operator");
     //console.log(rot_op);
     if (state.length === 0) {
         return rot_op
     }
     else {
-        //console.log("new state is");
+    //console.log("new state is");
     //console.log(math.multiply(rot_op,state[0]));
     return math.multiply(rot_op,state[0])
     }
