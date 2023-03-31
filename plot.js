@@ -386,7 +386,7 @@ function gen_bloch_sphere() {
         line: {color: '#000000', width:3},
         text: ["x","","","y","","","",north_text,""],
         textfont: {
-            size:20,
+            size:30,
             color: "#000000"
         },
         textposition: 'top center'
@@ -401,7 +401,7 @@ function gen_bloch_sphere() {
         line: {color: '#000000', width:3},
         text: [south_text],
         textfont: {
-            size:20,
+            size:30,
             color: "#000000"
         },
         textposition: 'bottom center'
