@@ -10,6 +10,9 @@
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
       <!-- Custom CSS-->
       <link type="text/css" rel="stylesheet" href="style.css"  media="screen,projection"/>
+
+      <!-- Favicon -->
+      <link rel="icon" type="image/x-icon" href="logo_v1.svg">
             
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -29,8 +32,14 @@
         <div class="row lighten-5 grey">
           <nav>
             <div class="nav-wrapper indigo">
-            <a href="#" class="brand-logo" style="margin-left:1em;">Bloch sphere simulator</a>
+              <img src="logo_v1.svg" alt="Bloch sphere tool" style="height: 3.5em; margin:0.5em"/> <a href="#" class="brand-logo" style="margin-left:.4em;"><span style="height: 1.8em; margin-bottom: .1em; display:inline-block">Bloch sphere simulator</span></a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+              <li class="active"><a href="index.html">Tool</a></li>
+              <li><a href="explain.html">Explanation</a></li>
+              <li ><a href="https://github.com/kherb27/Blochy" target="_blank">GitHub &#8599;</a></li>
+            </ul>
           </div>
+          
           </nav>
             <div class="col s12 indigo"></div>
             <div class="col s12" style="margin-top:1em;"><a class="waves-effect waves-light btn-small" onclick="restart()">Init</a>
@@ -118,6 +127,35 @@
                       <a class="waves-effect waves-light btn-small blue-grey" onclick="custom_rotate_state();">Apply rotation</a>
                       </div>
                     </li>
+
+                    <li>
+                      <div class="collapsible-header"><i class="material-icons">clear</i>Quantum gates</div>
+                      <div class="collapsible-body">
+                      <table>
+                        <tr>
+                          <td>Pauli gates</td>
+                          <td>
+                            <a class="waves-effect waves-light btn-small blue-grey" onclick="rotate_state('x',math.PI);">X</a>
+                            <a class="waves-effect waves-light btn-small blue-grey" onclick="rotate_state('y',math.PI);">Y</a>
+                            <a class="waves-effect waves-light btn-small blue-grey" onclick="rotate_state('z',math.PI);">Z</a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Hadamard</td>
+                          <td> <a class="waves-effect waves-light btn-small blue-grey" onclick="rotate_state('y',math.PI/2);rotate_state('x',math.PI);">H</a>
+                          </tr>
+                        <tr>
+                          <td>Phase</td>
+                          <td> <a class="waves-effect waves-light btn-small blue-grey" onclick="rotate_state('z',math.PI/2);">S</a>
+                            <a class="waves-effect waves-light btn-small blue-grey" onclick="rotate_state('z',-math.PI/2);">S†</a>
+                            <a class="waves-effect waves-light btn-small blue-grey" onclick="rotate_state('z',math.PI/4);">T</a>
+                            <a class="waves-effect waves-light btn-small blue-grey" onclick="rotate_state('z',-math.PI/4);">T†</a>
+                          </td>
+                        </tr>
+                      </table>
+                        </div>
+
+                    </li>
                     <li>
                       <div class="collapsible-header"><i class="material-icons">rss_feed</i>Pulses</div>
                       <div class="collapsible-body">
@@ -176,7 +214,7 @@
       </div></main>
         <footer class="page-footer">
           <div class="footer-copyright" style="width:100%; text-align: center;margin-left: auto;margin-right: auto; display: block;">
-             &copy; Konstantin Herb &mdash; ETH Zurich &mdash; 2022 &mdash; MIT license
+             &copy; Konstantin Herb &mdash; ETH Zurich &mdash; 2023 &mdash; MIT license
              </div>
             </footer>
       <!--JavaScript at end of body for optimized loading-->
@@ -195,8 +233,7 @@
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
       <script type="text/javascript" src="plot.js"></script>
       <script type="text/javascript" src="ui.js"></script>
-      <!--  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "19ad05299bf54024a95c292e4e55f00a"}'></script> -->
-
+    
     </body>
   </html>
 

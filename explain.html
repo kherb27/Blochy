@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Bloch sphere visualizer: Explanation</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"  media="screen,projection"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <!-- Custom CSS-->
+    <link type="text/css" rel="stylesheet" href="style.css"  media="screen,projection"/>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="logo_v1.svg">
+          
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="Simulate the evolution of a qubit or spin on the Bloch sphere. This tool is ideal for understand quantum operations and plots for presentations or publications.">
+
+</head>
+
+  <body class="indigo lighten-5">
+    <main>
+    <div class="container" style="min-width:1200px">
+    <script type="text/javascript">
+          $(document).ready(function(){
+      $('.collapsible').collapsible();
+    });
+    </script>
+     
+      <div class="row lighten-5 grey">
+        <nav>
+          <div class="nav-wrapper indigo">
+            <img src="logo_v1.svg" alt="Bloch sphere tool" style="height: 3.5em; margin:0.5em"/> <a href="#" class="brand-logo" style="margin-left:.4em;"><span style="height: 1.8em; margin-bottom: .1em; display:inline-block">Bloch sphere simulator</span></a>
+            
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="index.html">Tool</a></li>
+            <li class="active"><a href="explain.html">Explanation</a></li>
+            <li ><a href="https://github.com/kherb27/Blochy" target="_blank">GitHub &#8599;</a></li>
+          </ul>
+        </div>
+
+        </nav>
+          <div class="col s12 indigo"></div>
+        <div class="col s12" style="text-align: justify;">
+        <h5>Introduction</h5>
+        <p>
+        The Bloch sphere is a powerful geometric representation frequently employed in quantum mechanics to visualize and analyze quantum states of a two-level quantum system, often referred to as a qubit. 
+        The Bloch sphere is named after the Swiss phycisist Felix Bloch, the father of Nuclear Magnetic Resonance (NMR), who introduced it as an intuitive way to depict the quantum state of the $SU(2)$ Hilbert space. Typically, the qubit state is described for a pure system by a 2-dimensional, complex valued vector of length 1.
+        </p>
+        <p>
+        The Bloch sphere provides a 3D representation of this quantum state space, where the north and south poles represent the basis states $|0\rangle$ and $|1\rangle$, while the equator embodies the superposition of these states. Unitary transformations, which encompass quantum gates and operations, are elegantly visualized on the Bloch sphere as rotations. A rotation about any axis corresponds to a specific unitary transformation applied to the quantum state. This is because of the isomorphic relationship between the $SU(2)$ group and the group of rotations in 3D space, $SO(3)$. This makes the Bloch sphere a valuable tool for designing and comprehending quantum algorithms and quantum gates.
+      </p>
+      <p>
+        This online tool aims at providing an easily and readily available tool to visualize quantum states and operations on the Bloch sphere. It is ideal for presentations, publications, and teaching. The tool is based on the open-source JavaScript library plotly.js.
+        </p>
+        </div>
+        <div class="col s12">
+        <h5>Mathematical background</h5>
+        Using the two basis states
+        $$|0\rangle =\begin{pmatrix}1\\0\end{pmatrix} \qquad \mathrm{and} \qquad |1\rangle=\begin{pmatrix}0\\1\end{pmatrix}, 
+        $$
+        any pure state $|\psi\rangle$ of a qubit can be written (up to an irrelevant global phase) as a linear combination
+        $$ |\psi\rangle = \cos\left(\frac{\theta}{2}\right) |0\rangle +  \sin\left(\frac{\theta}{2}\right) e^{\mathrm{i} \varphi} |1\rangle = \begin{pmatrix}\alpha \\ \beta\end{pmatrix}. $$
+        The state can be represented as a vector on the Bloch sphere, where the angles $\theta$ and $\varphi$ are the polar and azimuthal angles, respectively. The Bloch vector representation is given by
+        $$ \vec{r} = \begin{pmatrix} \sin\theta \cos\varphi \\ \sin\theta \sin\varphi \\ \cos\theta \end{pmatrix} = \begin{pmatrix}u \\ v \\ w\end{pmatrix}.$$
+        The Bloch vector is normalized to length 1, <i>i.e.</i> $|\vec{r}| = 1$.
+
+        To compute this representation numerically from a given state $|\psi\rangle$, we use the mapping
+        $$
+        \begin{align*}
+        u &= -2\,\mathrm{Re}(\alpha \beta^*) \\
+        v &=  2\,\mathrm{Im}(\alpha \beta^*) \\
+        w &= \mathrm{Re}(\alpha\alpha^*-\beta\beta^*).
+        \end{align*}
+        $$
+
+        Rotations around the axis $i$ are performed by applying the corresponding unitary operator to the current state $|\psi\rangle$,
+        $$ |\psi'\rangle = R_i(\phi) |\psi\rangle. $$
+        The visualizer tool stores the state state $|\psi\rangle$, performes the quantum actions on it and uses the above mapping to compute the Bloch vector representation after every manipulation. The Bloch vector is then used to plot the state on the Bloch sphere. 
+        
+        For the three Cartesian axes $i \in {x,y,z}$, the rotation operators are given by
+        $$
+        \begin{align*}
+        R_x(\phi) &= \begin{pmatrix} \cos\left(\frac{\phi}{2}\right) & -\mathrm{i} \sin\left(\frac{\phi}{2}\right) \\ -\mathrm{i} \sin\left(\frac{\phi}{2}\right) & \cos\left(\frac{\phi}{2}\right) \end{pmatrix} \\
+        R_y(\phi) &= \begin{pmatrix} \cos\left(\frac{\phi}{2}\right) & - \sin\left(\frac{\phi}{2}\right) \\ \sin\left(\frac{\phi}{2}\right) & \cos\left(\frac{\phi}{2}\right) \end{pmatrix} \\
+        R_z(\phi) &= \begin{pmatrix} e^{-\mathrm{i}\frac{\phi}{2}} & 0 \\ 0 & e^{\mathrm{i}\frac{\phi}{2}} \end{pmatrix},
+        \end{align*}
+        $$
+        where we use the matrix exponential.
+
+        For an arbitrary rotation axis $\vec{n} = (n_x,n_y,n_z)$, the rotation operator is given by
+        $$ R_{\vec{n}}(\phi) = \exp\left(-\mathrm{i} \frac{\phi}{2} \vec{n} \cdot \vec{\sigma}\right), $$
+        where $\vec{\sigma} = (\sigma_x,\sigma_y,\sigma_z)$ are the Pauli matrices. The rotation operator can be written as
+        $$ R_{\vec{n}}(\phi) = \cos\left(\frac{\phi}{2}\right) \mathbb{1} - \mathrm{i} \sin\left(\frac{\phi}{2}\right) \vec{n} \cdot \vec{\sigma}. $$ 
+
+        This convention results in a right-handed coordinate system, where the rotation around the $z$-axis is a clockwise rotation when looking along the positive $z$-axis. The rotation around the $x$-axis is a clockwise rotation when looking along the positive $x$-axis. The rotation around the $y$-axis is a clockwise rotation when looking along the positive $y$-axis.
+
+
+
+
+
+        <h5>How to use this tool</h5>
+        <p>
+        The tab <i>Rotation around default axis</i>, allows to perform rotation operations around the three Cartesian axes. The rotation angle can be chosen by the user. The rotation is performed by applying the corresponding unitary operator to the current state $|\psi\rangle$, Most common rotation angles have separate buttons.
+      </p>
+<p>
+        The tab <i>Rotation around custom axis</i>, allows to perform a rotation operation around an axis that can be specified by the user entering a polar angle $\theta$ and an azimuthal angle $\varphi$. The rotation angle can be chosen by the user. The rotation is performed by applying the corresponding unitary operator to the current state $|\psi\rangle$. All units are in degrees.
+      </p>
+      <p>
+        The tab <i>Gates</i>, allows to apply the most common quantum gates to the current state. They are defined as follows:
+        <ul style="margin-left:2em;list-style: circle;">
+        <li style="list-style: disc;">Pauli gates: $X = R_x(\pi)$ (NOT / bit flip), $Y = R_y(\pi)$, $Z = R_z(\pi)$ (phase filip)</li>
+        <li style="list-style: disc;">Hadamard gate: $H = R_x(\pi) R_y(\pi/2)$</li>
+        <li style="list-style: disc;">S gate: $S = R_z(\pi/2)$</li>
+        <li style="list-style: disc;">$\pi/8$ gate: $T = R_z(\pi/4)$</li>
+        </ul>
+      </p>
+
+      <p>
+        The tab <i>Pulses</i> computes the action of am rf pulse in the rotating frame. All units are dimensionless. A pulse with the amplitude 1 and a duration of 1 corrersponds to a $2\pi$ rotation. To apply pulses along different axes in the conventional sense, use the phase in degrees. The pulse is applied by multiplying the current state with the corresponding unitary operator. The buttons "apply pulse along x" and "apply pulse along y" apply a pulse with the given amplitude and duration along the $x$- and $y$-axis, respectively. Typically, in the phyical implementation, the pulse is only applied along one axis and phase differences between pulses are realized in the rotating frame.
+      </p>
+        </div>
+        </div>
+      </div>
+    </div></main>
+      <footer class="page-footer">
+        <div class="footer-copyright" style="width:100%; text-align: center;margin-left: auto;margin-right: auto; display: block;">
+           &copy; Konstantin Herb &mdash; ETH Zurich &mdash; 2023 &mdash; MIT license
+           </div>
+          </footer>
+    <!--JavaScript at end of body for optimized loading-->
+      
+    <!--Math-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.2.1/math.js" integrity="sha512-47N5yVdAeXJ+9qstVMTH2Z0EpX618sjYZcswRwhpldSTD0IbW6yQPtzg4RLrPp/2+TIgEF1elT68/ZBu82nqJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js" integrity="sha384-cpW21h6RZv/phavutF+AuVYrr+dA8xD9zs6FwLpaCct6O9ctzYFfFr4dgmgccOTx" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+              // customised options
+              // • auto-render specific keys, e.g.:
+              delimiters: [
+                  {left: '$$', right: '$$', display: true},
+                  {left: '$', right: '$', display: false},
+                  {left: '\\(', right: '\\)', display: false},
+                  {left: '\\[', right: '\\]', display: true}
+              ],
+              // • rendering keys, e.g.:
+              throwOnError : false
+            });
+        });
+    </script>
+    
+
+  </body>
+</html>
+
