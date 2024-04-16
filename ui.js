@@ -31,6 +31,16 @@ function export_png() {
     Plotly.downloadImage('myDiv', {format: 'png', width: document.getElementById('export_size').value, height: document.getElementById('export_size').value, filename: datetime});
 }
 
+function hadamard(){
+    opX = math.matrix([[0,math.complex(0.5,0)],[math.complex(0.5,0),0]]);
+    opZ = math.matrix([[math.complex(0.5,0),0],[0,math.complex(-0.5,0)]]);
+
+    
+    rot_op = math.add(math.multiply(opX,1/math.sqrt(2)),math.multiply(opZ,1/math.sqrt(2)));
+    rotate_state(rot_op,math.PI);
+}
+
+
 function custom_rotate_state(){
     opX = math.matrix([[0,math.complex(0.5,0)],[math.complex(0.5,0),0]]);
     opY =  math.matrix([[0,math.complex(0,-0.5)],[math.complex(0,0.5),0]]);
