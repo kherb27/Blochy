@@ -101,6 +101,18 @@ function rot_phosphor(axis_op, angle, state, divider=10) {
     PHOSPHOR.push(hist);
 }
 
+function apply_custom_op(custom_op, state) {
+    let transformed = math.multiply(custom_op, state);
+    // We have no guarantee the custom_op is unitary; make sure the state stays unit length
+    let length_sum = 0.0;
+    for (var i = 0; i < transformed.size()[0]; i++) {
+        let abs = transformed.get([i]).abs();
+        length_sum += abs * abs;
+    }
+
+    return math.multiply(1.0 / math.sqrt(length_sum), transformed);
+}
+
 function rabi_plot(data=null) {
     time = document.getElementById('pulselength').value;
    if (data === null) {
