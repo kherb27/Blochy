@@ -19,3 +19,35 @@ body {
      flex: 1 0 auto;
  }
       
+
+ .matrix-container {
+    display: flex;
+    align-items: center;
+}
+
+.matrix {
+  position: relative;
+  padding-left: 1em;
+  margin-left: 1em;
+}
+.matrix:before, .matrix:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  border: 1px solid #000;
+  width: 6px;
+  height: 100%;
+}
+.matrix:before {
+  left: -6px;
+  border-right: 0;
+}
+.matrix:after {
+  right: -6px;
+  border-left: 0;
+}
+
+.matrix table tr, .matrix table td {
+  border-top: none;
+  border-bottom: none;
+}

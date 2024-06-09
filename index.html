@@ -159,21 +159,28 @@
 
                     </li>
                     <li>
-                      <div class="collapsible-header"><i class="material-icons">clear</i>Custom Quantum gate</div>
+                      <div class="collapsible-header"><i class="material-icons">apps</i>Custom Quantum gate (matrix entry)</div>
                       <div class="collapsible-body">
+                        <i>U has to be unitary. Experimental feature. Use with care.</i><br/><br/>
+                        <div class="matrix-container">
+                          <span>U =</span>
+                          <div class="matrix">
                         <table>
                           <tr>
-                            <td><input id="custom_m00" style="width:8em;margin-left:0.5em;" value="1.0" onblur="on_update_complex(event);"></td>
-                            <td><input id="custom_m01" style="width:8em;margin-left:0.5em;" value="0.0" onblur="on_update_complex(event);"></td>
+                            <td><input id="custom_m00" style="width:8em;margin-left:0.5em;" value="1" onblur="on_update_complex(event);"></td>
+                            <td><input id="custom_m01" style="width:8em;margin-left:0.5em;" value="0" onblur="on_update_complex(event);"></td>
                           </tr>
                           <tr>
-                            <td><input id="custom_m10" style="width:8em;margin-left:0.5em;" value="0.0" onblur="on_update_complex(event);"></td>
-                            <td><input id="custom_m11" style="width:8em;margin-left:0.5em;" value="1.0" onblur="on_update_complex(event);"></td>
+                            <td><input id="custom_m10" style="width:8em;margin-left:0.5em;" value="0" onblur="on_update_complex(event);"></td>
+                            <td><input id="custom_m11" style="width:8em;margin-left:0.5em;" value="1" onblur="on_update_complex(event);"></td>
                           </tr>
                           <tr>
-                            <td><a class="waves-effect waves-light btn-small blue-grey" onclick="apply_custom_matrix();">Apply</a></td>
+                            <td></td>
                           </tr>
                         </table>
+                      </div>
+                    </div><br>
+                    <a class="waves-effect waves-light btn-small blue-grey" onclick="apply_custom_matrix();">Apply</a>
                       </div>
                     </li>
                     <li>
@@ -247,7 +254,7 @@
 
 
       <!--Math-->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.2.1/math.js" integrity="sha512-47N5yVdAeXJ+9qstVMTH2Z0EpX618sjYZcswRwhpldSTD0IbW6yQPtzg4RLrPp/2+TIgEF1elT68/ZBu82nqJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/13.0.0/math.min.js" integrity="sha512-zP2Tr3WTE4wF7MonahLvKKSPvokSGmFOT3xRHFaoGi9q8Ydlsn9IrFAzoCJ8aETtE7h4/ZJckvrirY8jS+m6XQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
       <script src="helper.js"></script> 
       <script src="quantum.js"></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
