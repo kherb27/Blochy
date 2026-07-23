@@ -63,7 +63,43 @@ function print_state(state){
     console.log(arrText);
 }
 
-function rot_phosphor(axis_op, angle, state, divider=10) {
+// Build the plotly trace for one operation's trajectory. If an op entry
+// ({num, label, color}) is given, the trace is drawn in the operation's
+// unique color and its endpoint is tagged with the sequence number.
+function phosphor_trace(uarr, varr, warr, entry) {
+    if (entry === undefined) {
+        return {
+            x:uarr, y: varr, z: warr,
+            type: 'scatter3d',
+            showscale: false,
+            hoverinfo: 'skip',
+            mode: 'lines',
+            opacity: 1.0,
+            line: {color: document.getElementById('phosphor_color').value, width:3},
+        }
+    }
+    // text label (sequence number) only at the last point of the trajectory
+    var textarr = Array(uarr.length).fill('');
+    textarr[uarr.length-1] = '<b>' + entry.num + '</b>';
+    var plain_label = entry.label.replace(/<[^>]*>/g, '').replace(/&#176;/g, '\u00b0')
+                          .replace(/&#952;/g, '\u03b8').replace(/&#966;/g, '\u03c6');
+    return {
+        name: 'op' + entry.num,
+        x:uarr, y: varr, z: warr,
+        type: 'scatter3d',
+        showscale: false,
+        mode: 'lines+text',
+        hoverinfo: 'text',
+        hovertext: '#' + entry.num + ': ' + plain_label,
+        opacity: 1.0,
+        line: {color: entry.color, width:5},
+        text: textarr,
+        textfont: {size: 16, color: entry.color},
+        textposition: 'top center',
+    }
+}
+
+function rot_phosphor(axis_op, angle, state, divider=10, entry=undefined) {
     //console.log("Divider is");
     //console.log(divider);
     uarr = [];
@@ -89,15 +125,7 @@ function rot_phosphor(axis_op, angle, state, divider=10) {
         warr.push(w);
     }
     
-    var hist = {
-        x:uarr, y: varr, z: warr,
-        type: 'scatter3d',
-        showscale: false,
-        hoverinfo: 'skip', 
-        mode: 'lines',
-        opacity: 1.0,
-        line: {color: document.getElementById('phosphor_color').value, width:3},
-    }
+    var hist = phosphor_trace(uarr, varr, warr, entry);
     PHOSPHOR.push(hist);
 }
 
@@ -189,7 +217,7 @@ function rabi_plot(data=null) {
     return math.multiply(rot_op,state)
   }
   
-  function pulse_phosphor(axis,time,state,divider=10) {
+  function pulse_phosphor(axis,time,state,divider=10, entry=undefined) {
     
     uarr = [];
     varr = [];
@@ -207,18 +235,10 @@ function rabi_plot(data=null) {
         warr.push(w);
     }
     
-    var hist = {
-        x:uarr, y: varr, z: warr,
-        type: 'scatter3d',
-        showscale: false,
-        hoverinfo: 'skip', 
-        mode: 'lines',
-        opacity: 1.0,
-        line: {color: document.getElementById('phosphor_color').value, width:3},
-    }
+    var hist = phosphor_trace(uarr, varr, warr, entry);
     PHOSPHOR.push(hist);
   }
   
   
   
-  
+  
