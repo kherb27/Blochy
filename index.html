@@ -58,6 +58,11 @@
             </div>
             <div class="col s6">
 
+                <div class="card" style="padding: 0.8em 1em; margin-bottom: 1em;">
+                  <span style="font-weight:600;"><i class="material-icons" style="vertical-align:middle; font-size:1.2em;">format_list_numbered</i> Operation sequence</span>
+                  <div id="op_history" style="margin-top:0.5em;"></div>
+                </div>
+
                 <ul class="collapsible expandable">
                     <li class="active">
                       <div class="collapsible-header"><i class="material-icons">rotate_right</i>Rotations around default axes</div>
@@ -137,9 +142,9 @@
                         <tr>
                           <td>Pauli gates</td>
                           <td>
-                            <a class="waves-effect waves-light btn-small blue-grey" onclick="rotate_state('x',math.PI);">X</a>
-                            <a class="waves-effect waves-light btn-small blue-grey" onclick="rotate_state('y',math.PI);">Y</a>
-                            <a class="waves-effect waves-light btn-small blue-grey" onclick="rotate_state('z',math.PI);">Z</a>
+                            <a class="waves-effect waves-light btn-small blue-grey" onclick="rotate_state('x',math.PI,'X gate');">X</a>
+                            <a class="waves-effect waves-light btn-small blue-grey" onclick="rotate_state('y',math.PI,'Y gate');">Y</a>
+                            <a class="waves-effect waves-light btn-small blue-grey" onclick="rotate_state('z',math.PI,'Z gate');">Z</a>
                           </td>
                         </tr>
                         <tr>
@@ -148,10 +153,10 @@
                           </tr>
                         <tr>
                           <td>Phase</td>
-                          <td> <a class="waves-effect waves-light btn-small blue-grey" onclick="rotate_state('z',math.PI/2);">S</a>
-                            <a class="waves-effect waves-light btn-small blue-grey" onclick="rotate_state('z',-math.PI/2);">S†</a>
-                            <a class="waves-effect waves-light btn-small blue-grey" onclick="rotate_state('z',math.PI/4);">T</a>
-                            <a class="waves-effect waves-light btn-small blue-grey" onclick="rotate_state('z',-math.PI/4);">T†</a>
+                          <td> <a class="waves-effect waves-light btn-small blue-grey" onclick="rotate_state('z',math.PI/2,'S gate');">S</a>
+                            <a class="waves-effect waves-light btn-small blue-grey" onclick="rotate_state('z',-math.PI/2,'S&#8224; gate');">S†</a>
+                            <a class="waves-effect waves-light btn-small blue-grey" onclick="rotate_state('z',math.PI/4,'T gate');">T</a>
+                            <a class="waves-effect waves-light btn-small blue-grey" onclick="rotate_state('z',-math.PI/4,'T&#8224; gate');">T†</a>
                           </td>
                         </tr>
                       </table>
@@ -194,8 +199,8 @@
                         <td>Top state text</td><td><input type="text" id="north_text" value="0" style="width:5em" onchange="BLOCHSPHERE =  gen_bloch_sphere();update_state_plot(full_update=true)"></td>
                         <td>Bottom state text</td><td><input type="text" id="south_text"  value="1" style="width:5em" onchange="BLOCHSPHERE =  gen_bloch_sphere();update_state_plot(full_update=true)"></td>
                       </tr>
-                      <tr><td>History trace length</td><td><input type="number" id="phosphor_length"  value="10" min="0" step="1" style="width:5em"></td>
-                      <td></td><td></td>
+                      <tr><td>History trace length</td><td><input type="number" id="phosphor_length"  value="20" min="0" step="1" style="width:5em"></td>
+                      <td>Color-code operations</td><td><label><input type="checkbox" id="seq_coloring" checked="checked"/><span>&nbsp;</span></label></td>
                       </tr>
                       <tr>
                         <td>Export size</td>
